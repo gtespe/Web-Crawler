@@ -1,17 +1,17 @@
 
 def urlToDomain(url):
     #if there isnt a slash at the end, add one (makes parsing easier)
-    if(url[-1] != '/'):
+    if not url.endswith('/'):
         url += '/'
 
     numSlashes = 0
 
     #cycle through the string and find the third '/' i.e. http://www.example.com/fdsafdsa/
-    for k in range(0, len(url) - 1):
+    for k in range(0, len(url)):
         if(url[k] == '/'):
             numSlashes += 1
             if(numSlashes == 3):
-                return url[:k+1]
+                return url[:k]
 
 class Website:
     pages = []
@@ -23,7 +23,7 @@ class Website:
         
 
     def export(self):
-        target = open(self.domain + ".txt", 'w')
+        target = open(self.domain[11:len(self.domain)-1] + ".txt", 'w')
         for page in self.pages:
             target.write(page.export())
 
